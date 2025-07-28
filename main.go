@@ -1,29 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 func main() {
-	var FirstName string
-	var LastName string
-	var Email string
-	var RemSlots int = 50
+	msg := []int{1, 3, 4, 5, 6, 9374983745, 4358598, 456578}
+	msg = append(msg, 45)
+	fmt.Println(len(msg))
 
-	var Slots int
+	// functions
+	add(5, 4)
 
-	fmt.Println("Enter your first name ")
-	fmt.Scan(&FirstName)
+	// Register route
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Hello from Go!")
+	})
 
-	fmt.Println("Enter your last name ")
-	fmt.Scan(&LastName)
+	fmt.Println("Server running on http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 
-	fmt.Println("Enter your Email ")
-	fmt.Scan(&Email)
+}
 
-	fmt.Println("Enter Slots ")
-	fmt.Scan(&Slots)
+func add(a int, b int) int {
 
-	RemSlots = RemSlots - Slots
-	fmt.Printf("Thanks you %v %v for booking %v slots and confirmation has sent to %v\n", FirstName, LastName, Slots, Email)
-	fmt.Println("The remaining slots are ", RemSlots)
+	sum := a + b
+	return sum
 
 }
